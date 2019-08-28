@@ -1,0 +1,2 @@
+include ':app', ':spectrumcustomizer'
+rootProject.name='SpectrumIntegration'
