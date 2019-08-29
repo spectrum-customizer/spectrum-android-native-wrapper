@@ -23,7 +23,10 @@ public class SpectrumView extends WebView {
 
     private void init(Context context) {
 
-        String url = "https://madetoorderdev.blob.core.windows.net/spectrum-native-test/index.html";
+        //String url = "https://madetoorderdev.blob.core.windows.net/spectrum-native-test/index.html";
+        String url = "file:///android_asset/index.html";
+
+        this.setWebContentsDebuggingEnabled(true);
 
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
