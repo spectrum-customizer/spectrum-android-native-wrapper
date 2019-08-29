@@ -6,11 +6,72 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <com.pollinate.spectrum.spectrumcustomizer.SpectrumView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+
+        >
+
+        <com.pollinate.spectrum.spectrumcustomizer.SpectrumView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <EditText
+                android:id="@+id/recipe_input"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+
+            <Button
+                android:id="@+id/load_recipe"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Load Recipe"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="right"
+            >
+            <Button
+                android:id="@+id/load_sku_1"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Load SKU 1"
+                />
+
+            <Button
+                android:id="@+id/load_sku_2"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="Load SKU 2"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 
     <!--
     <WebView
