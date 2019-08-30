@@ -25,14 +25,6 @@
 <script src="https://madetoorderdev.blob.core.windows.net/spectrum-native-test/frontend/customizer.js"></script>
 
 <script>
-    (function() {
-         const addToCartBtn = document.getElementById('add-to-cart');
-         const shareBtn = document.getElementById('share');
-         const content = document.getElementById('content');
-         const from = document.getElementById('from');
-
-         let bought = 0;
-         let shared = 0;
 
          function randomLetter() {
            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -87,6 +79,7 @@
          }
 
 
+        /*
          addToCartBtn.addEventListener('click', () => {
            alert('added to cart');
            if (typeof window.SpectrumNative !== 'undefined') {
@@ -100,26 +93,23 @@
            shared+=1;
            window.SpectrumNative.shared(`Shared: ${shared}`);
          });
+        */
+         window.integration = window.integration || {};
 
-         window.spectrum = {};
-
-         window.spectrum.loadRecipe = function (recipeData) {
+         window.integration = window.integration || {};
+         window.integration.loadRecipe = function (recipeData) {
            console.log(recipeData);
-           from.innerHTML = 'Loaded Recipe';
-
            var data = typeof recipeData === "string" ? JSON.parse(recipeData) : recipeData;
-
-           content.innerHTML = JSON.stringify(data, undefined, 2);
+            window.spectrum.fromCustomizer.switchRecipeSet(data.recipeSetReadableId)
          };
 
-         window.spectrum.loadSku = function (sku) {
+         window.integration.loadSku = function (sku) {
            console.log(sku);
-           from.innerHTML = 'Loaded Sku';
            var data = typeof sku === "string" ? JSON.parse(sku) : sku;
-           content.innerHTML = JSON.stringify(data, undefined, 2);
+           window.spectrum.fromCustomizer.goToProduct(data.productId)
          };
 
-         }());
+
 
         </script>
 </body>

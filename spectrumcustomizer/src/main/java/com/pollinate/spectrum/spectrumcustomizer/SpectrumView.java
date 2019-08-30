@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class SpectrumView extends WebView {
 
@@ -23,7 +25,6 @@ public class SpectrumView extends WebView {
 
     private void init(Context context) {
 
-        //String url = "https://madetoorderdev.blob.core.windows.net/spectrum-native-test/index.html";
         String url = "file:///android_asset/index.html";
 
         this.setWebContentsDebuggingEnabled(true);
@@ -33,5 +34,25 @@ public class SpectrumView extends WebView {
         this.clearCache(true);
         this.loadUrl(url);
 
+    }
+
+    public void LoadRecipe(SpectrumArguments args) {
+
+        String serialized = serializeArguments(args);
+        this.evaluateJavascript("integration.loadRecipe('" + serialized + "');", null);
+    }
+
+    public void LoadSku(SpectrumArguments args) {
+
+        String serialized = serializeArguments(args);
+        this.evaluateJavascript("integration.loadSku('" + serialized + "');", null);
+    }
+
+    private String serializeArguments(SpectrumArguments args) {
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        return gson.toJson(args);
     }
 }
