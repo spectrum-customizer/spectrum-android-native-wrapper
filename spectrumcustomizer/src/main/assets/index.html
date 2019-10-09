@@ -11,57 +11,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" >
 </head>
 <body>
-<!--
-<h2>Customizer</h2>
-<button id="add-to-cart">Add to Cart</button>
-<button id="share">Share</button>
-<h4>Messages</h4>
-<p id="from"></p>
-<div>
-    <pre id="content"></pre>
-</div>
--->
-<div id="app"></div>
-<script src="https://madetoorderdev.blob.core.windows.net/spectrum-native-test/frontend/customizer.js"></script>
+<div id="spectrum-customizer"></div>
+<script>
+          window.customizerWrapperId = 'spectrum-customizer';
+</script>
 
 <script>
 
-         function randomLetter() {
-           const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-           return characters.charAt(Math.floor(Math.random() * characters.length));
-         }
+           function randomLetter() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            return characters.charAt(Math.floor(Math.random() * characters.length));
+           }
 
-         function randomDigit() {
-           return Math.floor(Math.random() * 10);
-         }
+           function randomDigit() {
+            return Math.floor(Math.random() * 10);
+           }
 
-         function generateRandomSeries(amount, builder) {
-           return [...Array(amount).keys()].map(x => builder());
-         }
+           function generateRandomSeries(amount, builder) {
+            return [...Array(amount).keys()].map(x => builder());
+           }
 
-         function letterSeries(amount) {
-           return generateRandomSeries(amount, randomLetter).join('');
-         }
+           function letterSeries(amount) {
+            return generateRandomSeries(amount, randomLetter).join('');
+           }
 
-         function digitSeries(amount) {
-           return generateRandomSeries(amount, randomDigit).join('');
-         }
+           function digitSeries(amount) {
+            return generateRandomSeries(amount, randomDigit).join('');
+           }
 
 
-         function generateRandomReadableId() {
-           return `${letterSeries(3)}${digitSeries(4)}`;
-         }
+           function generateRandomReadableId() {
+            return `${letterSeries(3)}${digitSeries(4)}`;
+           }
 
-         function generateRandomSku() {
-           return `${digitSeries(5)}`;
-         }
+           function generateRandomSku() {
+            return `${digitSeries(5)}`;
+           }
 
-         function generateRandomImage() {
-           return {
-             s7Suffix: '',
-             compositeUrl: 'https://madetoorderdev.blob.core.windows.net/spectrum-native-test/800x600.png'
-           };
-         }
+           function generateRandomImage() {
+            return {
+              s7Suffix: '',
+              compositeUrl: 'https://madetoorderdev.blob.core.windows.net/spectrum-native-test/800x600.png'
+            };
+           }
 
 
          function generateRandomCartData() {
@@ -75,28 +67,9 @@
                generateRandomImage()
              ]
            };
-
          }
 
-
-        /*
-         addToCartBtn.addEventListener('click', () => {
-           alert('added to cart');
-           if (typeof window.SpectrumNative !== 'undefined') {
-             window.SpectrumNative.addedToCart(JSON.stringify(generateRandomCartData()));
-           } else if (typeof window.webkit.messageHandlers.addToCart !== 'undefined') {
-             window.webkit.messageHandlers.addToCart.postMessage(generateRandomCartData());
-           }
-         });
-
-         shareBtn.addEventListener('click', () => {
-           shared+=1;
-           window.SpectrumNative.shared(`Shared: ${shared}`);
-         });
-        */
-         window.integration = window.integration || {};
-
-         window.integration = window.integration || {};
+        window.integration = window.integration || {};
          window.integration.loadRecipe = function (recipeData) {
            console.log(recipeData);
            var data = typeof recipeData === "string" ? JSON.parse(recipeData) : recipeData;
@@ -109,7 +82,25 @@
            window.spectrum.fromCustomizer.goToProduct(data.productId)
          };
 
+        window.integration.addToCart = function(skus, recipeSetId, options) {
+              let cartData = {
+                skus: skus,
+                recipeSetId: recipeSetId,
+                options: options
+              };
 
+            if (typeof window.SpectrumNative !== 'undefined') {
+              window.SpectrumNative.addToCart(JSON.stringify(cartData));
+            } else if (typeof window.webkit.messageHandlers.addToCart !== 'undefined') {
+              window.webkit.messageHandlers.addToCart.postMessage(cartData);
+            }
+        }
+
+         window.loadCustomizer = function (script) {
+           let elem = document.createElement('script');
+           elem.src = script;
+           document.getElementsByTagName('body')[0].append(elem);
+         }
 
         </script>
 </body>

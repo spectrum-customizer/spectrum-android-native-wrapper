@@ -1,5 +1,7 @@
 package com.pollinate.spectrum.spectrumcustomizer;
 
+import java.util.Map;
+
 public interface SpectrumAddToCart {
-    void addToCart(SpectrumAddToCartEventArgs args);
+    void addToCart(String[] skus, String recipeSetId, Map<String,String> options);
 }
