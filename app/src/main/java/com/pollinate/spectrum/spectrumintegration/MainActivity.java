@@ -2,8 +2,9 @@ package com.pollinate.spectrum.spectrumintegration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pollinate.spectrum.spectrumcustomizer.SpectrumAddToCart;
+import com.pollinate.spectrum.spectrumcustomizer.SpectrumCallback;
 import com.pollinate.spectrum.spectrumcustomizer.SpectrumArguments;
+import com.pollinate.spectrum.spectrumcustomizer.SpectrumPrice;
 import com.pollinate.spectrum.spectrumcustomizer.SpectrumView;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,11 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button recipeButton = findViewById(R.id.load_recipe);
 
         SpectrumView sv = findViewById(R.id.spectrum);
 
-        sv.onAddToCart(new SpectrumAddToCart() {
+        sv.onEvent(new SpectrumCallback() {
             @Override
             public void addToCart(String[] skus, String recipeSetId, Map<String, String> options) {
 
@@ -48,7 +49,20 @@ public class MainActivity extends AppCompatActivity {
 
                 toast.show();
             }
+
+            @Override
+            public Map<String, SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
+
+                Map<String, SpectrumPrice> prices = new HashMap<>();
+
+                prices.put("Sku1", new SpectrumPrice(randomPrice(), true));
+                prices.put("Sku2", new SpectrumPrice(randomPrice(), false));
+
+                return prices;
+            }
         });
+
+        Button recipeButton = findViewById(R.id.load_recipe);
 
         recipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SpectrumView sv = findViewById(R.id.spectrum);
                 SpectrumArguments args = new SpectrumArguments();
-                args.productId = "tmx-pro-guess-originals";
+                args.productId = "example-pro-product-1";
                 sv.LoadSku(args);
             }
         });
@@ -77,9 +91,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SpectrumView sv = findViewById(R.id.spectrum);
                 SpectrumArguments args = new SpectrumArguments();
-                args.productId = "tmx-pro-wilshire-38mm";
+                args.productId = "example-pro-product-2";
                 sv.LoadSku(args);
             }
         });
+    }
+
+    private String randomPrice() {
+        int digit = (int)(Math.random() * 80 + 10);
+        return "$" + Integer.toString(digit) + ".00";
     }
 }

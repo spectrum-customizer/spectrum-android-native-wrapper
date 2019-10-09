@@ -1,6 +1,7 @@
 package com.pollinate.spectrum.spectrumcustomizer;
 
 public interface CustomizerInterface {
-    public void addToCart(String arg);
+    void addToCart(String args);
+    void getPrice(String args);
 }
 

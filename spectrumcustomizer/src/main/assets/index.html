@@ -18,62 +18,16 @@
 
 <script>
 
-           function randomLetter() {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            return characters.charAt(Math.floor(Math.random() * characters.length));
-           }
+         window.customizerWrapperId = 'spectrum-customizer';
 
-           function randomDigit() {
-            return Math.floor(Math.random() * 10);
-           }
+         window.pendingPriceUpdates = {};
 
-           function generateRandomSeries(amount, builder) {
-            return [...Array(amount).keys()].map(x => builder());
-           }
+         window.integration = window.integration || {};
 
-           function letterSeries(amount) {
-            return generateRandomSeries(amount, randomLetter).join('');
-           }
-
-           function digitSeries(amount) {
-            return generateRandomSeries(amount, randomDigit).join('');
-           }
-
-
-           function generateRandomReadableId() {
-            return `${letterSeries(3)}${digitSeries(4)}`;
-           }
-
-           function generateRandomSku() {
-            return `${digitSeries(5)}`;
-           }
-
-           function generateRandomImage() {
-            return {
-              s7Suffix: '',
-              compositeUrl: 'https://madetoorderdev.blob.core.windows.net/spectrum-native-test/800x600.png'
-            };
-           }
-
-
-         function generateRandomCartData() {
-
-           return {
-             recipeSetReadableId: generateRandomReadableId(),
-             baseSku: generateRandomSku(),
-             jacronSku: generateRandomSku(),
-             spectrumImageUrls: [
-               generateRandomImage(),
-               generateRandomImage()
-             ]
-           };
-         }
-
-        window.integration = window.integration || {};
          window.integration.loadRecipe = function (recipeData) {
            console.log(recipeData);
            var data = typeof recipeData === "string" ? JSON.parse(recipeData) : recipeData;
-            window.spectrum.fromCustomizer.switchRecipeSet(data.recipeSetReadableId)
+           window.spectrum.fromCustomizer.switchRecipeSet(data.recipeSetReadableId)
          };
 
          window.integration.loadSku = function (sku) {
@@ -82,19 +36,57 @@
            window.spectrum.fromCustomizer.goToProduct(data.productId)
          };
 
-        window.integration.addToCart = function(skus, recipeSetId, options) {
-              let cartData = {
-                skus: skus,
-                recipeSetId: recipeSetId,
-                options: options
-              };
+         window.integration.addToCart = function(skus, recipeSetId, options) {
 
-            if (typeof window.SpectrumNative !== 'undefined') {
-              window.SpectrumNative.addToCart(JSON.stringify(cartData));
-            } else if (typeof window.webkit.messageHandlers.addToCart !== 'undefined') {
-              window.webkit.messageHandlers.addToCart.postMessage(cartData);
-            }
-        }
+           let cartData = {
+             skus: skus,
+             recipeSetId: recipeSetId,
+             options: options
+           };
+
+           if (typeof window.SpectrumNative !== 'undefined') {
+             window.SpectrumNative.addToCart(JSON.stringify(cartData));
+           } else if (window.webkit && typeof window.webkit.messageHandlers.addToCart !== 'undefined') {
+             window.webkit.messageHandlers.addToCart.postMessage(cartData);
+           }
+         }
+
+         window.integration.spectrumGetPriceAndInventory = function (skus, options) {
+
+           return new Promise((resolve, reject) => {
+
+             const callbackId = generateId();
+
+             window.pendingPriceUpdates[callbackId] = {
+               resolve: resolve,
+               reject: reject
+             };
+
+             const priceData = {
+               callbackId: callbackId,
+               skus: skus,
+               options: options
+             };
+
+             if (typeof window.SpectrumNative !== 'undefined') {
+               window.SpectrumNative.getPrice(JSON.stringify(priceData));
+             } else if (window.webkit && typeof window.webkit.messageHandlers.addToCart !== 'undefined') {
+               window.webkit.messageHandlers.getPrice.postMessage(priceData);
+             } else {
+               reject();
+             }
+           });
+         }
+
+         function resolvePrice(callbackId, prices) {
+           if (window.pendingPriceUpdates.hasOwnProperty(callbackId)) {
+             window.pendingPriceUpdates[callbackId].resolve(prices);
+           }
+         }
+
+         function generateId() {
+           return parseInt(Math.random() * 10000000);
+         }
 
          window.loadCustomizer = function (script) {
            let elem = document.createElement('script');
