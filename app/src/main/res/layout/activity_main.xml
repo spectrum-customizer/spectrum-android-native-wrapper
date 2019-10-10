@@ -14,7 +14,6 @@
 
         >
 
-        <!-- add customizer url -->
         <com.pollinate.spectrum.spectrumcustomizer.SpectrumView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

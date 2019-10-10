@@ -22,21 +22,7 @@
 
          window.pendingPriceUpdates = {};
 
-         window.integration = window.integration || {};
-
-         window.integration.loadRecipe = function (recipeData) {
-           console.log(recipeData);
-           var data = typeof recipeData === "string" ? JSON.parse(recipeData) : recipeData;
-           window.spectrum.fromCustomizer.switchRecipeSet(data.recipeSetReadableId)
-         };
-
-         window.integration.loadSku = function (sku) {
-           console.log(sku);
-           var data = typeof sku === "string" ? JSON.parse(sku) : sku;
-           window.spectrum.fromCustomizer.goToProduct(data.productId)
-         };
-
-         window.integration.addToCart = function(skus, recipeSetId, options) {
+         window.spectrumAddToCart = function(skus, recipeSetId, options) {
 
            let cartData = {
              skus: skus,
@@ -51,7 +37,7 @@
            }
          }
 
-         window.integration.spectrumGetPriceAndInventory = function (skus, options) {
+         window.spectrumGetPriceAndInventory = function (skus, options) {
 
            return new Promise((resolve, reject) => {
 

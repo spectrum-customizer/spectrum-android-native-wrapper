@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         SpectrumView sv = findViewById(R.id.spectrum);
 
         sv.onEvent(new SpectrumCallback() {

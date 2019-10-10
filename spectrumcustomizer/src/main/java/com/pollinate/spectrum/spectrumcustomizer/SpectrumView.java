@@ -96,13 +96,13 @@ public class SpectrumView extends WebView {
     public void LoadRecipe(SpectrumArguments args) {
 
         String serialized = serializeArguments(args);
-        this.evaluateJavascript("integration.loadRecipe('" + serialized + "');", null);
+        this.evaluateJavascript("spectrum.loadRecipe('" + serialized + "');", null);
     }
 
     public void LoadSku(SpectrumArguments args) {
 
         String serialized = serializeArguments(args);
-        this.evaluateJavascript("integration.loadSku('" + serialized + "');", null);
+        this.evaluateJavascript("spectrum.loadSku('" + serialized + "');", null);
     }
 
     public void onEvent(SpectrumCallback listener) {
