@@ -32,7 +32,7 @@ First, add the Spectrum namespace to the root element of the layout (`xmlns:spec
 
 ```xml
 
- <com.pollinate.spectrum.spectrumcustomizer.SpectrumView
+ <com.spectrumcustomizer.integration.SpectrumView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/spectrum"

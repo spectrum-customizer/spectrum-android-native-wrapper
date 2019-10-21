@@ -1,4 +1,6 @@
-package com.pollinate.spectrum.spectrumcustomizer;
+package com.spectrumcustomizer.integration;
+
+import com.spectrumcustomizer.integration.SpectrumArguments;
 
 import org.junit.Before;
 import org.junit.Test;

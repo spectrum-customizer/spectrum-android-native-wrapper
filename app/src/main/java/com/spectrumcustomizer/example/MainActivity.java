@@ -1,11 +1,12 @@
-package com.pollinate.spectrum.spectrumintegration;
+package com.spectrumcustomizer.example;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pollinate.spectrum.spectrumcustomizer.SpectrumCallback;
-import com.pollinate.spectrum.spectrumcustomizer.SpectrumArguments;
-import com.pollinate.spectrum.spectrumcustomizer.SpectrumPrice;
-import com.pollinate.spectrum.spectrumcustomizer.SpectrumView;
+import com.pollinate.spectrum.spectrumintegration.R;
+import com.spectrumcustomizer.integration.SpectrumCallback;
+import com.spectrumcustomizer.integration.SpectrumArguments;
+import com.spectrumcustomizer.integration.SpectrumPrice;
+import com.spectrumcustomizer.integration.SpectrumView;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.pollinate.spectrum.spectrumintegration;
+package com.spectrumcustomizer.example;
 
 import android.content.Context;
 

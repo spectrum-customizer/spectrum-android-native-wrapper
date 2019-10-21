@@ -1,9 +1,9 @@
-package com.pollinate.spectrum.spectrumcustomizer;
+package com.spectrumcustomizer.integration;
+
+import com.spectrumcustomizer.integration.SpectrumAddToCartEventArgs;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class AddToCartEventArgsTest {
 

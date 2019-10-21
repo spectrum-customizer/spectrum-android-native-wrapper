@@ -1,4 +1,4 @@
-package com.pollinate.spectrum.spectrumcustomizer;
+package com.spectrumcustomizer.integration;
 
 import android.os.Parcel;
 import android.os.Parcelable;

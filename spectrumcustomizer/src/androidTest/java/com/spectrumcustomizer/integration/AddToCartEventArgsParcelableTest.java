@@ -1,6 +1,8 @@
-package com.pollinate.spectrum.spectrumcustomizer;
+package com.spectrumcustomizer.integration;
 
 import android.os.Parcel;
+
+import com.spectrumcustomizer.integration.SpectrumAddToCartEventArgs;
 
 import org.junit.Test;
 

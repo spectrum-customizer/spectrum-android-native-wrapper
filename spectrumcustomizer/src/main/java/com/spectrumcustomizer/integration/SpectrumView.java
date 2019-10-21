@@ -1,4 +1,4 @@
-package com.pollinate.spectrum.spectrumcustomizer;
+package com.spectrumcustomizer.integration;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pollinate.spectrum.spectrumcustomizer.R;
 
 import java.util.Map;
 

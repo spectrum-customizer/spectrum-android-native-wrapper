@@ -1,4 +1,4 @@
-package com.pollinate.spectrum.spectrumcustomizer;
+package com.spectrumcustomizer.integration;
 
 public class SpectrumArguments {
     public String containerSelector;
