@@ -9,7 +9,7 @@ The Spectrum Customizer library provides a subclass of Android's WebView with he
 Adding the library to a project
 -------------------------------
 
-Download the Spectrum Customizer jar from TK. In Android Studio ([documentation](https://developer.android.com/studio/projects/android-library)):
+Download the Spectrum Customizer jar from https://github.com/spectrum-customizer/spectrum-android-native-wrapper. In Android Studio ([documentation](https://developer.android.com/studio/projects/android-library)):
 
 1. Click File > New > New Module
 2. Click Import .JAR/.AAR Package and then click Next
