@@ -1,6 +1,7 @@
 package com.spectrumcustomizer.example;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.pollinate.spectrum.spectrumintegration.R;
 import com.spectrumcustomizer.integration.SpectrumCallback;
@@ -19,12 +20,23 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FragmentManager mFragmentManager;
+    private SpectrumView sv;
+    private static String customizerUrl = "https://madetoorderdev.blob.core.windows.net/spectrum-native-test/app.js";
+
+    private String product1 = "example-product-1";
+    private String product2 = "example-product-2";
+    private String readableId = "BDTFLYW6";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SpectrumView sv = findViewById(R.id.spectrum);
+        mFragmentManager = getSupportFragmentManager();
+
+        sv = (SpectrumView) mFragmentManager.findFragmentById(R.id.spectrum);
+        sv.LoadSku(product1, customizerUrl);
 
         sv.onEvent(new SpectrumCallback() {
             @Override
@@ -62,15 +74,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Button recipeButton = findViewById(R.id.load_recipe);
 
         recipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SpectrumView sv = findViewById(R.id.spectrum);
                 SpectrumArguments args = new SpectrumArguments();
-                args.recipeSetReadableId = "XFREHXNT";
-                sv.LoadRecipe(args);
+                MainActivity.this.sv.LoadRecipe(readableId, customizerUrl);
             }
         });
 
@@ -78,10 +89,7 @@ public class MainActivity extends AppCompatActivity {
         skuOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SpectrumView sv = findViewById(R.id.spectrum);
-                SpectrumArguments args = new SpectrumArguments();
-                args.productId = "example-pro-product-1";
-                sv.LoadSku(args);
+                MainActivity.this.sv.LoadSku(product1, customizerUrl);
             }
         });
 
@@ -89,12 +97,10 @@ public class MainActivity extends AppCompatActivity {
         skuTwoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SpectrumView sv = findViewById(R.id.spectrum);
-                SpectrumArguments args = new SpectrumArguments();
-                args.productId = "example-pro-product-2";
-                sv.LoadSku(args);
+                MainActivity.this.sv.LoadSku(product2, customizerUrl);
             }
         });
+
     }
 
     private String randomPrice() {

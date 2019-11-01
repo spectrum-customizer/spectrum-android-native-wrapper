@@ -4,44 +4,65 @@ Spectrum Wrapper for Android
 Overview
 --------
 
-The Spectrum Customizer library provides a subclass of Android's WebView with helper methods for interacting with Customizer Content.
+The Spectrum Customizer library provides a subclass of Android's fragment class with helper methods for interacting with Customizer Content. The customizer itself is loaded in a WebView.
 
 Adding the library to a project
 -------------------------------
 
 Download the Spectrum Customizer jar from https://github.com/spectrum-customizer/spectrum-android-native-wrapper. In Android Studio ([documentation](https://developer.android.com/studio/projects/android-library)):
 
-1. Click File > New > New Module
-2. Click Import .JAR/.AAR Package and then click Next
-3. Enter the location of the JAR file and click finish
+1. Click File > New > Import Module
+2. Enter the location of the Spectrum Customizer code and click finish
 
 Update application permissions
 ------------------------------
 
-Spectrum Customizers require internet access. Set the appropriate permissions in the Android manifest:
+Spectrum Customizers require internet and file system access. Appropriate permissions have been set in the Android manifest:
 
 ```xml
 
 <uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 ```
-Add a SpectrumView element to a layout
+Add a SpectrumView fragment to the layout
 --------------------------------------
 
-First, add the Spectrum namespace to the root element of the layout (`xmlns:spectrum="http://schemas.android.com/apk/res-auto"`). Then add a SpecrumViewElement:
+Add a SpectrumView Fragment:
 
 ```xml
 
- <com.spectrumcustomizer.integration.SpectrumView
+<fragment android:name="com.spectrumcustomizer.integration.SpectrumView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/spectrum"
-    spectrum:customizer_location="https://madetoorderdev.blob.core.windows.net/spectrum-native-test/app.js"
     />
 
 ```
 
-The `customizer_location` property is the URL of the customizer.
+In your activity you can cast the fragment to a SpectrumView:
+
+```java
+
+FragmentManager mFragmentManager = getSupportFragmentManager();
+
+SpectrumView sv = (SpectrumView) mFragmentManager.findFragmentById(R.id.spectrum);
+
+```
+
+Once you have a reference to a SpectrumView instance you can initialize the customizer with either a SKU or a Spectrum recipe ID.
+
+```java
+// customizerUrl is a string url that points to the Spectrum Customizer Javascript.
+
+sv.LoadRecipe(readableId, customizerUrl);
+
+// or
+
+sv.LoadSku(product1, customizerUrl);
+
+```
+
 
 Add callbacks to the implementing activity
 ------------------------------------------
@@ -50,25 +71,23 @@ An activity needs to provide an implementation of the SpectrumCallback interface
 
 ```java
 
-SpectrumView sv = findViewById(R.id.spectrum);
+sv.onEvent(new SpectrumCallback() {
+    @Override
+    public void addToCart(String[] skus, String recipeSetId, Map<String, String> options) {
+        // Add to cart logic
+    }
 
-    sv.onEvent(new SpectrumCallback() {
-        @Override
-        public void addToCart(String[] skus, String recipeSetId, Map<String, String> options) {
-            // Add to cart logic
-        }
+    @Override
+    public Map<String, SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
 
-        @Override
-        public Map<String, SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
+        Map<String, SpectrumPrice> prices = new HashMap<>();
 
-            Map<String, SpectrumPrice> prices = new HashMap<>();
+        prices.put("Sku1", new SpectrumPrice("$50.00", true));
+        prices.put("Sku2", new SpectrumPrice("$100.00", false));
 
-            prices.put("Sku1", new SpectrumPrice("$50.00", true));
-            prices.put("Sku2", new SpectrumPrice("$100.00", false));
-
-            return prices;
-        }
-    });
+        return prices;
+    }
+});
 
 ```
 
@@ -86,28 +105,6 @@ public class SpectrumPrice {
         this.inStock = inStock;
     }
 }
-
-```
-
-Loading a recipe or a product
------------------------------
-
-Existing recipes can be loaded by calling loadRecipe and products can be loaded by calling loadSku. Both expect a SpectrumArguments object:
-
-```java
-
- // Load a recipe
- SpectrumView sv = findViewById(R.id.spectrum);
- SpectrumArguments args = new SpectrumArguments();
- args.recipeSetReadableId = "XFREHXNT";
- sv.LoadRecipe(args);
-
- // Load a product
-
- SpectrumView sv = findViewById(R.id.spectrum);
- SpectrumArguments args = new SpectrumArguments();
- args.productId = "example-pro-product-1";
- sv.LoadSku(args);
 
 ```
 
