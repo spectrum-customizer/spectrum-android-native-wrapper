@@ -87,6 +87,7 @@ public class SpectrumView extends Fragment {
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
 
         mWebView.setWebContentsDebuggingEnabled(true);
         mWebView.clearCache(true);
