@@ -2,9 +2,9 @@ apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
 
 publish {
-    def groupProjectID = 'com.spectrumcustomizer.intergration'
+    def groupProjectID = 'com.spectrumcustomizer.integration'
     def artifactProjectID = 'SpectrumCustomizer'
-    def publishVersionID = '1.0.1'
+    def publishVersionID = '1.0.2'
 
     userOrg = 'spectrumcustomizer'
     repoName = 'SpectrumCustomizer'
