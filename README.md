@@ -9,10 +9,8 @@ The Spectrum Customizer library provides a subclass of Android's fragment class 
 Adding the library to a project
 -------------------------------
 
-Download the Spectrum Customizer jar from https://github.com/spectrum-customizer/spectrum-android-native-wrapper. In Android Studio ([documentation](https://developer.android.com/studio/projects/android-library)):
+Snippets for installing this plugin using maven, gradle or ivy can be found on [bintray](https://bintray.com/beta/#/spectrumcustomizer/SpectrumCustomizer/SpectrumCustomizer?tab=overview).
 
-1. Click File > New > Import Module
-2. Enter the location of the Spectrum Customizer code and click finish
 
 Update application permissions
 ------------------------------
