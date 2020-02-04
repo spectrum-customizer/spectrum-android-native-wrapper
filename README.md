@@ -61,7 +61,6 @@ sv.LoadSku(product1, customizerUrl);
 
 ```
 
-
 Add callbacks to the implementing activity
 ------------------------------------------
 
