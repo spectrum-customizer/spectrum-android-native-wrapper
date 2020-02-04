@@ -1,21 +1,4 @@
-apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'com.android.library'
-
-publish {
-    def groupProjectID = 'com.spectrumcustomizer.integration'
-    def artifactProjectID = 'SpectrumCustomizer'
-    def publishVersionID = '1.0.2'
-
-    userOrg = 'spectrumcustomizer'
-    repoName = 'SpectrumCustomizer'
-    groupId = groupProjectID
-    artifactId = artifactProjectID
-    publishVersion = publishVersionID
-    desc = 'A library for interacting with Spectrum Customizer Content.'
-    website = 'https://github.com/spectrum-customizer/spectrum-android-native-wrapper'
-    repository = 'https://github.com/spectrum-customizer/spectrum-android-native-wrapper.git'
-    licences = ['MIT']
-}
 
 android {
     compileSdkVersion 28
@@ -54,3 +37,5 @@ dependencies {
     debugImplementation 'com.novoda:espresso-support-extras:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
 }
+
+apply from: 'publish.gradle'
