@@ -6,8 +6,8 @@ android {
     defaultConfig {
         minSdkVersion 28
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -37,4 +37,3 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
 }
 
-apply from: 'publish.gradle'
