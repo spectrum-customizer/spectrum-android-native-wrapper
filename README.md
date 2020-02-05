@@ -9,7 +9,23 @@ The Spectrum Customizer library provides a subclass of Android's fragment class 
 Adding the library to a project
 -------------------------------
 
-Snippets for installing this plugin using maven, gradle or ivy can be found on [bintray](https://bintray.com/beta/#/spectrumcustomizer/SpectrumCustomizer/SpectrumCustomizer?tab=overview).
+This library can be installed using Jitpack.
+
+First, add jitpack to your root build.gradle:
+
+```
+allprojects {
+  maven { url 'https://jitpack.io' }
+}
+```
+
+Then add the dependency:
+
+```
+dependencies {
+  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:1.0.7'
+}
+```
 
 
 Update application permissions
