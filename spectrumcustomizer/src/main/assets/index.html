@@ -24,7 +24,7 @@
 
          window.spectrumAddToCart = function(skus, recipeSetId, options) {
 
-           let cartData = {
+           var cartData = {
              skus: Array.isArray(skus) ? skus : [skus],
              recipeSetId: recipeSetId,
              options: typeof options === 'undefined' ? {} : escapeOptions(options)
@@ -39,16 +39,16 @@
 
          window.spectrumGetPriceAndInventory = function (skus, options) {
 
-           return new Promise((resolve, reject) => {
+           return new Promise(function (resolve, reject) {
 
-             const callbackId = generateId();
+             var callbackId = generateId();
 
              window.pendingPriceUpdates[callbackId] = {
                resolve: resolve,
                reject: reject
              };
 
-             const priceData = {
+             var priceData = {
                callbackId: callbackId,
                skus: skus,
                options: typeof options === 'undefined' ? {} : escapeOptions(options)
@@ -65,10 +65,10 @@
          }
 
          function escapeOptions(options) {
-           let result = {};
-           for (let key in options) {
+           var result = {};
+           for (var key in options) {
              if (options.hasOwnProperty(key)) {
-               let opt = options[key];
+               var opt = options[key];
                result[key] = typeof opt !== "string" ? JSON.stringify(opt) : opt;
              }
            }
@@ -86,9 +86,9 @@
          }
 
          window.loadCustomizer = function (script) {
-           let elem = document.createElement('script');
+           var elem = document.createElement('script');
            elem.src = script;
-           document.getElementsByTagName('body')[0].append(elem);
+           document.getElementsByTagName('body')[0].appendChild(elem);
          }
 
         </script>

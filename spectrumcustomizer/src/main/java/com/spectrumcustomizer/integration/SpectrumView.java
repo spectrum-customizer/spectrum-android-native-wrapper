@@ -17,6 +17,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.webkit.WebViewCompat;
+import androidx.webkit.WebViewClientCompat;
+
+
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
@@ -74,7 +78,7 @@ public class SpectrumView extends Fragment {
 
     private void loadCustomizer() {
 
-        mWebView.setWebViewClient(new WebViewClient() {
+        mWebView.setWebViewClient(new WebViewClientCompat() {
 
             @Override
             public void onPageFinished(WebView view, String url) {
