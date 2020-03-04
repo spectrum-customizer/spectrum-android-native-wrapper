@@ -125,3 +125,17 @@ Example Implementation
 ----------------------
 
 A simple example implementation (the app project) can be found in the repo.
+
+
+Note on targeting Android API 21
+--------------------------------
+
+There is a known issue when trying to use a WebView with
+androidx.appcompat:appcompate:1.1.0 that causes the application to
+crash.
+
+Switching to 'androidx.appcompat:appcompat:1.2.0-alpha02' fixes the issue.
+
+[Link to bug tracker ](https://issuetracker.google.com/issues/141132133)
+[Link to Stack Overflow](https://stackoverflow.com/questions/41025200/android-view-inflateexception-error-inflating-class-android-webkit-webview)
+
