@@ -131,7 +131,7 @@ Note on targeting Android API 21
 --------------------------------
 
 There is a known issue when trying to use a WebView with
-androidx.appcompat:appcompate:1.1.0 that causes the application to
+androidx.appcompat:appcompat:1.1.0 that causes the application to
 crash.
 
 Switching to 'androidx.appcompat:appcompat:1.2.0-alpha02' fixes the issue.
