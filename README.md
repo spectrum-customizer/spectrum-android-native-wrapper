@@ -137,5 +137,6 @@ crash.
 Switching to 'androidx.appcompat:appcompat:1.2.0-alpha02' fixes the issue.
 
 [Link to bug tracker ](https://issuetracker.google.com/issues/141132133)
+
 [Link to Stack Overflow](https://stackoverflow.com/questions/41025200/android-view-inflateexception-error-inflating-class-android-webkit-webview)
 
