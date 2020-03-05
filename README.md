@@ -23,7 +23,7 @@ Then add the dependency:
 
 ```
 dependencies {
-  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:1.1.0'
+  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:1.1.1'
 }
 ```
 

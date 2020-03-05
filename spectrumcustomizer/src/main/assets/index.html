@@ -24,10 +24,20 @@
 
          window.spectrumAddToCart = function(skus, recipeSetId, options) {
 
+           var safeOptions = typeof options === 'undefined' ? {} : options;
+
+           if (typeof options === 'undefined') {
+             safeOptions = {};
+           } else if (Array.isArray(options)) {
+             safeOptions = consolidateOptions(options);
+           } else {
+             safeOptions = escapeOptions(options);
+           }
+
            var cartData = {
              skus: Array.isArray(skus) ? skus : [skus],
              recipeSetId: recipeSetId,
-             options: typeof options === 'undefined' ? {} : escapeOptions(options)
+             options: safeOptions
            };
 
            if (typeof window.SpectrumNative !== 'undefined') {
@@ -64,15 +74,35 @@
            });
          }
 
+         function consolidateOptions(optionList) {
+           return optionList.reduce(function (result, opt) {
+             var safeOption = escapeOptions(opt);
+             for (var key in safeOption) {
+               result[key] = safeOption[key]
+             }
+             return result;
+           }, {});
+         }
+
          function escapeOptions(options) {
            var result = {};
            for (var key in options) {
              if (options.hasOwnProperty(key)) {
                var opt = options[key];
-               result[key] = typeof opt !== "string" ? JSON.stringify(opt) : opt;
+               if (key === 'thumbnailUrls') {
+                  extractAngles(opt, result);
+               } else {
+                 result[key] = typeof opt !== "string" ? JSON.stringify(opt) : opt;
+               }
              }
            }
            return result;
+         }
+
+         function extractAngles(viewAngles, result) {
+           for (var key in viewAngles) {
+             result[key] = viewAngles[key];
+           }
          }
 
          function resolvePrice(callbackId, prices) {
