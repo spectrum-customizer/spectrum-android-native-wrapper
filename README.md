@@ -23,7 +23,7 @@ Then add the dependency:
 
 ```
 dependencies {
-  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:1.1.1'
+  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:2.0.0'
 }
 ```
 
@@ -70,9 +70,10 @@ Once you have a reference to a SpectrumView instance you can initialize the cust
 // customizerUrl is a string url that points to the Spectrum Customizer Javascript.
 
 sv.LoadRecipe(readableId, customizerUrl);
+// or load with product as well (implementation dependent)
+sv.LoadRecipe(String readableId, String url, String product)
 
-// or
-
+// or load by sku
 sv.LoadSku(product1, customizerUrl);
 
 ```
@@ -91,29 +92,28 @@ sv.onEvent(new SpectrumCallback() {
     }
 
     @Override
-    public Map<String, SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
-
-        Map<String, SpectrumPrice> prices = new HashMap<>();
-
-        prices.put("Sku1", new SpectrumPrice("$50.00", true));
-        prices.put("Sku2", new SpectrumPrice("$100.00", false));
-
-        return prices;
+    public ArrayList<SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
+         ArrayList<SpectrumPrice> result = new ArrayList<SpectrumPrice>();
+         for (int i = 0; i < skus.length; i++) {
+             result.add(new SpectrumPrice(skus[i], randomPrice(), true));
+         }
+         return result;
     }
 });
 
 ```
 
-Prices are passed in as strings since they are only displayed in the UI, not used for any calculation. SpectrumPrice is a simple data transfer object:
+SpectrumPrice is a simple data transfer object:
 
 ```java
 
 public class SpectrumPrice {
-
-    public String price;
+    public Double price;
     public Boolean inStock;
+    public String sku;
 
-    public SpectrumPrice(String price, Boolean inStock) {
+     public SpectrumPrice(String sku, Double price, Boolean inStock) {
+        this.sku = sku;
         this.price = price;
         this.inStock = inStock;
     }

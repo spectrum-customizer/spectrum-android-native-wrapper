@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,14 +64,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public Map<String, SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
+            public ArrayList<SpectrumPrice> getPrice(String[] skus, Map<String, String> options) {
 
-                Map<String, SpectrumPrice> prices = new HashMap<>();
+                ArrayList<SpectrumPrice> result = new ArrayList<SpectrumPrice>();
 
-                prices.put("Sku1", new SpectrumPrice(randomPrice(), true));
-                prices.put("Sku2", new SpectrumPrice(randomPrice(), false));
+                for (int i = 0; i < skus.length; i++) {
+                    result.add(new SpectrumPrice(skus[i], randomPrice(), true));
+                }
 
-                return prices;
+                return result;
             }
         });
 
@@ -103,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private String randomPrice() {
-        int digit = (int)(Math.random() * 80 + 10);
-        return "$" + Integer.toString(digit) + ".00";
+    private double randomPrice() {
+        double digit = (double)(Math.random() * 80 + 10);
+        return Math.round(digit * 100.0) / 100.0;
     }
 }

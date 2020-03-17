@@ -30,6 +30,7 @@ import com.pollinate.spectrum.spectrumcustomizer.R;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -61,12 +62,16 @@ public class SpectrumView extends Fragment {
 
     }
 
-    public void LoadRecipe(String readableId, String url) {
+    public void LoadRecipe(String readableId, String url, String product) {
 
         mCustomizerUrl = url;
         mReadableId = readableId;
-        mActiveSku = "";
+        mActiveSku = product;
         loadCustomizer();
+    }
+
+    public void LoadRecipe(String readableId, String url) {
+        LoadRecipe(readableId, url, "");
     }
 
     public void LoadSku(String sku, String url) {
@@ -118,7 +123,7 @@ public class SpectrumView extends Fragment {
                     Gson gson = builder.create();
 
                     final SpectrumGetPriceArgs getPriceArgs = gson.fromJson(args, SpectrumGetPriceArgs.class);
-                    Map<String, SpectrumPrice> prices = eventListeners.getPrice(getPriceArgs.skus, getPriceArgs.options);
+                    ArrayList<SpectrumPrice> prices = eventListeners.getPrice(getPriceArgs.skus, getPriceArgs.options);
                     final String parsedPrices = gson.toJson(prices);
 
                     // JS communication has to be run on the UI thread so we wrap it in a Runnable

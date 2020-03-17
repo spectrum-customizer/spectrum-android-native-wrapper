@@ -34,8 +34,13 @@
              safeOptions = escapeOptions(options);
            }
 
+           var skuData = Array.isArray(skus) ? skus : [skus];
+           skuData = skuData.map(function (sku) {
+             return typeof sku === 'undefined' ? '' : sku
+           });
+
            var cartData = {
-             skus: Array.isArray(skus) ? skus : [skus],
+             skus: skuData,
              recipeSetId: recipeSetId,
              options: safeOptions
            };
@@ -58,9 +63,18 @@
                reject: reject
              };
 
+             var skuData = Array.isArray(skus) ? skus : [skus];
+             skuData = skuData.map(function(sku) {
+               var result = typeof sku === 'undefined' ? '' : sku;
+               if (result === '' && window.spectrumLoadProduct !== '' && window.spectrumLoadProduct !== null) {
+                 result = window.spectrumLoadProduct;
+               }
+               return result;
+             });
+
              var priceData = {
                callbackId: callbackId,
-               skus: skus,
+               skus: skuData,
                options: typeof options === 'undefined' ? {} : escapeOptions(options)
              };
 
@@ -117,9 +131,18 @@
 
          window.loadCustomizer = function (script) {
            var elem = document.createElement('script');
+           elem.onload = function() {
+             if (window.spectrumInit) {
+               window.spectrumInit();
+             }
+           };
            elem.src = script;
            document.getElementsByTagName('body')[0].appendChild(elem);
          }
+
+         window.spectrumThrowError = function (err) {
+            console.error(err);
+         };
 
         </script>
 </body>
