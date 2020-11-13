@@ -22,28 +22,16 @@
 
          window.pendingPriceUpdates = {};
 
-         window.spectrumAddToCart = function(skus, recipeSetId, options) {
+         window.spectrumAddToCart = function(payload) {
 
-           var safeOptions = typeof options === 'undefined' ? {} : options;
-
-           if (typeof options === 'undefined') {
-             safeOptions = {};
-           } else if (Array.isArray(options)) {
-             safeOptions = consolidateOptions(options);
-           } else {
-             safeOptions = escapeOptions(options);
-           }
-
-           var skuData = Array.isArray(skus) ? skus : [skus];
-           skuData = skuData.map(function (sku) {
-             return typeof sku === 'undefined' ? '' : sku
-           });
-
-           var cartData = {
-             skus: skuData,
-             recipeSetId: recipeSetId,
-             options: safeOptions
-           };
+           var cartData = {};
+           cartData.recipeSetId = payload.recipeSetId;
+           cartData.sku = isNullOrUndefined(payload.sku) ? '' : payload.sku;
+           cartData.skusByName = isNullOrUndefined(payload.skusByName) ? {} : payload.skusByName;
+           cartData.quantity = isNullOrUndefined(payload.quantity) ? 0 : payload.quantity;
+           cartData.primaryThumbnailAngle = isNullOrUndefined(payload.primaryThumbnailAngle) ? '' : payload.primaryThumbnailAngle;
+           cartData.thumbnailsByAngle = isNullOrUndefined(payload.thumbnailsByAngle) ? [] : payload.thumbnailsByAngle;
+           cartData.options = isNullOrUndefined(payload.options) ? {} : escapeOptions(payload.options);
 
            if (typeof window.SpectrumNative !== 'undefined') {
              window.SpectrumNative.addToCart(JSON.stringify(cartData));
@@ -127,6 +115,10 @@
 
          function generateId() {
            return parseInt(Math.random() * 10000000);
+         }
+
+         function isNullOrUndefined(item) {
+            return typeof item === 'undefined' || item === null;
          }
 
          window.loadCustomizer = function (script) {

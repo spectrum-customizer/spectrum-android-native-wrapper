@@ -87,7 +87,7 @@ An activity needs to provide an implementation of the SpectrumCallback interface
 
 sv.onEvent(new SpectrumCallback() {
     @Override
-    public void addToCart(String[] skus, String recipeSetId, Map<String, String> options) {
+    public void addToCart(SpectrumAddToCartPayload payload) {
         // Add to cart logic
     }
 
@@ -102,6 +102,26 @@ sv.onEvent(new SpectrumCallback() {
 });
 
 ```
+
+Here is the implementation of SpectrumAddToCartPayload:
+
+```java
+
+public class SpectrumAddToCartPayload {
+
+    public String recipeSetId;
+    public String sku;
+    public Map<String, String> skusByName;
+    public int quantity;
+    public String primaryThumbnailAngle;
+    public List<AngleThumbnail> thumbnailsByAngle;
+    public Map<String, String> options;
+
+    public SpectrumAddToCartPayload() {}
+}
+
+```
+
 
 SpectrumPrice is a simple data transfer object:
 

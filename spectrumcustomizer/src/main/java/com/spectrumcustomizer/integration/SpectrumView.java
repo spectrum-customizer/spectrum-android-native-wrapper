@@ -109,8 +109,8 @@ public class SpectrumView extends Fragment {
                 if (eventListeners != null) {
                     GsonBuilder builder = new GsonBuilder();
                     Gson gson = builder.create();
-                    SpectrumAddToCartEventArgs cartEventArgs = gson.fromJson(args, SpectrumAddToCartEventArgs.class);
-                    eventListeners.addToCart(cartEventArgs.skus, cartEventArgs.recipeSetId, cartEventArgs.options);
+                    SpectrumAddToCartPayload payload = gson.fromJson(args, SpectrumAddToCartPayload.class);
+                    eventListeners.addToCart(payload);
                 }
             }
 

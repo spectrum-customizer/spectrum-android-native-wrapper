@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.pollinate.spectrum.spectrumintegration.R;
+import com.spectrumcustomizer.integration.AngleThumbnail;
+import com.spectrumcustomizer.integration.SpectrumAddToCartPayload;
 import com.spectrumcustomizer.integration.SpectrumCallback;
 import com.spectrumcustomizer.integration.SpectrumArguments;
 import com.spectrumcustomizer.integration.SpectrumPrice;
@@ -23,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager;
     private SpectrumView sv;
-    private static String customizerUrl = "https://madetoorderdev.blob.core.windows.net/spectrum-native-test/app.js";
-
+    private static String customizerUrl = "https://stospectdevwestus2.blob.core.windows.net/spectrum-native-test/v3/app.js";
     private String product1 = "example-product-1";
     private String product2 = "example-product-2";
     private String readableId = "BDTFLYW6";
@@ -41,22 +42,31 @@ public class MainActivity extends AppCompatActivity {
 
         sv.onEvent(new SpectrumCallback() {
             @Override
-            public void addToCart(String[] skus, String recipeSetId, Map<String, String> options) {
+            public void addToCart(SpectrumAddToCartPayload payload) {
 
                 Context context = getApplicationContext();
                 StringBuilder text = new StringBuilder();
-                text.append("Recipe set ID: " + recipeSetId);
-                text.append("\nSkus:\n");
+                text.append("Recipe set ID: " + payload.recipeSetId + '\n');
+                text.append("Sku: " + payload.sku + '\n');
+                text.append("\nskusByName:\n");
 
-                for (String sku : skus) {
-                    text.append(sku + "\n");
-                }
-
-                for (Map.Entry<String, String> entry : options.entrySet()) {
+                for (Map.Entry<String, String> entry : payload.skusByName.entrySet()) {
                     text.append(entry.getKey() + ": " + entry.getValue() + "\n");
                 }
 
-                int duration = Toast.LENGTH_SHORT;
+                text.append("Quantity: " + payload.quantity + '\n');
+
+                text.append("Primary thumbnail angle: " + payload.primaryThumbnailAngle + '\n');
+
+                for (AngleThumbnail thumbnail : payload.thumbnailsByAngle) {
+                    text.append(thumbnail.toString());
+                }
+
+                for (Map.Entry<String, String> option : payload.options.entrySet()) {
+                    text.append(option.getKey() + ": " + option.getValue() + "\n");
+                }
+
+                int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(context, text.toString(), duration);
 
