@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.pollinate.spectrum.spectrumintegration.R;
 import com.spectrumcustomizer.integration.AngleThumbnail;
+import com.spectrumcustomizer.integration.CartItem;
 import com.spectrumcustomizer.integration.SpectrumAddToCartPayload;
 import com.spectrumcustomizer.integration.SpectrumCallback;
 import com.spectrumcustomizer.integration.SpectrumArguments;
@@ -47,14 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 Context context = getApplicationContext();
                 StringBuilder text = new StringBuilder();
                 text.append("Recipe set ID: " + payload.recipeSetId + '\n');
-                text.append("Sku: " + payload.sku + '\n');
-                text.append("\nskusByName:\n");
 
-                for (Map.Entry<String, String> entry : payload.skusByName.entrySet()) {
-                    text.append(entry.getKey() + ": " + entry.getValue() + "\n");
+                for (CartItem item : payload.items) {
+                    text.append(item.toString());
                 }
-
-                text.append("Quantity: " + payload.quantity + '\n');
 
                 text.append("Primary thumbnail angle: " + payload.primaryThumbnailAngle + '\n');
 

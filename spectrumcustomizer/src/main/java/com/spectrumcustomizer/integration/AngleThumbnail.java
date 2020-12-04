@@ -1,7 +1,7 @@
 package com.spectrumcustomizer.integration;
 
 public class AngleThumbnail {
-    public String name;
+    public String angleName;
     public String url;
 
     public AngleThumbnail() {}
@@ -9,7 +9,7 @@ public class AngleThumbnail {
     @Override
     public String toString() {
         return "{\n" +
-                "  name='" + name + "\'," + '\n' +
+                "  angleName='" + angleName + "\'," + '\n' +
                 "  url='" + url + '\'' + '\n' +
                 "}\n";
     }

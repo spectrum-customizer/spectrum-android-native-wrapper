@@ -6,9 +6,7 @@ import java.util.Map;
 public class SpectrumAddToCartPayload {
 
     public String recipeSetId;
-    public String sku;
-    public Map<String, String> skusByName;
-    public int quantity;
+    public List<CartItem> items;
     public String primaryThumbnailAngle;
     public List<AngleThumbnail> thumbnailsByAngle;
     public Map<String, String> options;

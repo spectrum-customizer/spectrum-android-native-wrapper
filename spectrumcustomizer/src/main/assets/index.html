@@ -26,9 +26,7 @@
 
            var cartData = {};
            cartData.recipeSetId = payload.recipeSetId;
-           cartData.sku = isNullOrUndefined(payload.sku) ? '' : payload.sku;
-           cartData.skusByName = isNullOrUndefined(payload.skusByName) ? {} : payload.skusByName;
-           cartData.quantity = isNullOrUndefined(payload.quantity) ? 0 : payload.quantity;
+           cartData.items = isNullOrUndefined(payload.items) ? [] : payload.items;
            cartData.primaryThumbnailAngle = isNullOrUndefined(payload.primaryThumbnailAngle) ? '' : payload.primaryThumbnailAngle;
            cartData.thumbnailsByAngle = isNullOrUndefined(payload.thumbnailsByAngle) ? [] : payload.thumbnailsByAngle;
            cartData.options = isNullOrUndefined(payload.options) ? {} : escapeOptions(payload.options);

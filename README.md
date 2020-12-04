@@ -23,7 +23,7 @@ Then add the dependency:
 
 ```
 dependencies {
-  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:3.0.0'
+  implementation 'com.github.spectrum-customizer:spectrum-android-native-wrapper:3.1.0'
 }
 ```
 
@@ -103,21 +103,30 @@ sv.onEvent(new SpectrumCallback() {
 
 ```
 
-Here is the implementation of SpectrumAddToCartPayload:
+Here is the implementation of SpectrumAddToCartPayload and dependent classes:
 
 ```java
 
 public class SpectrumAddToCartPayload {
 
     public String recipeSetId;
-    public String sku;
-    public Map<String, String> skusByName;
-    public int quantity;
+    public List<CartItem> items;
     public String primaryThumbnailAngle;
     public List<AngleThumbnail> thumbnailsByAngle;
     public Map<String, String> options;
 
     public SpectrumAddToCartPayload() {}
+}
+
+public class CartItem {
+    public String sku;
+    public String name;
+    public int quantity;
+}
+
+public class AngleThumbnail {
+    public String angleName;
+    public String url;
 }
 
 ```
